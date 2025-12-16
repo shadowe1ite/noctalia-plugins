@@ -8,6 +8,17 @@ Item {
 
   property var pluginApi: null
 
+  IpcHandler {
+    target: "plugin:mangowc-layout-switcher"
+    function toggle() {
+      if (pluginApi) {
+        pluginApi.withCurrentScreen(screen => {
+          pluginApi.openPanel(screen);
+        });
+      }
+    }
+  }
+
   // ===== PUBLIC DATA =====
 
   property var monitorLayouts: ({})
