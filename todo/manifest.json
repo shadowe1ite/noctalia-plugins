@@ -1,7 +1,7 @@
 {
   "id": "todo",
   "name": "Todo Plugin",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "minNoctaliaVersion": "3.7.1",
   "author": "lonerOrz <lonerOrz@qq.com>",
   "license": "MIT",
@@ -22,7 +22,8 @@
       "todos": [],
       "count": 0,
       "completedCount": 0,
-      "showCompleted": true
+      "showCompleted": true,
+      "showBackground": true
     }
   }
 }

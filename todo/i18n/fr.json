@@ -30,14 +30,6 @@
       "clear_completed_button": "Effacer les tâches terminées",
       "title": "Liste de tâches"
     },
-    "info": {
-      "ipc_commands_label": "Commandes IPC :",
-      "ipc_commands_list": "ajouterTâche, inverserTâche, effacerTerminées",
-      "plugin_dir_label": "Répertoire des extensions",
-      "plugin_id_label": "ID du plugin :",
-      "title": "Informations sur l'extension",
-      "unknown_value": "Inconnu(e)"
-    },
     "todo_item": {
       "delete_button_tooltip": "Supprimer"
     }

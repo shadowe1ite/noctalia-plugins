@@ -30,14 +30,6 @@
       "clear_completed_button": "Abgeschlossen löschen",
       "title": "Aufgabenliste"
     },
-    "info": {
-      "ipc_commands_label": "IPC-Befehle:",
-      "ipc_commands_list": "addTodo, toggleTodo, clearCompleted",
-      "plugin_dir_label": "Plugin-Verzeichnis:",
-      "plugin_id_label": "Plugin-ID:",
-      "title": "Plugin-Informationen",
-      "unknown_value": "Unbekannt"
-    },
     "todo_item": {
       "delete_button_tooltip": "Löschen"
     }

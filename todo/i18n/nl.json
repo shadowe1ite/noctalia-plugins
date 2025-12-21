@@ -30,14 +30,6 @@
       "clear_completed_button": "Voltooid wissen",
       "title": "Takenlijst"
     },
-    "info": {
-      "ipc_commands_label": "IPC-opdrachten:",
-      "ipc_commands_list": "addTodo, toggleTodo, clearCompleted",
-      "plugin_dir_label": "Plugin-directory:",
-      "plugin_id_label": "Plugin ID:",
-      "title": "Plugin informatie",
-      "unknown_value": "Onbekend"
-    },
     "todo_item": {
       "delete_button_tooltip": "Verwijderen"
     }

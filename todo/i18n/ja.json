@@ -30,14 +30,6 @@
       "clear_completed_button": "完了をクリア",
       "title": "やる事リスト"
     },
-    "info": {
-      "ipc_commands_label": "IPC コマンド:",
-      "ipc_commands_list": "addTodo、toggleTodo、clearCompleted",
-      "plugin_dir_label": "プラグインディレクトリ:",
-      "plugin_id_label": "プラグインID:",
-      "title": "プラグイン情報",
-      "unknown_value": "不明"
-    },
     "todo_item": {
       "delete_button_tooltip": "削除 (Sakujo)"
     }

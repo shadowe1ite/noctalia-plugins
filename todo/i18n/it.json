@@ -30,14 +30,6 @@
       "clear_completed_button": "Klar ferdig",
       "title": "Lista zadań"
     },
-    "info": {
-      "ipc_commands_label": "Befehle IPC:",
-      "ipc_commands_list": "addTodo, toggleTodo, clearCompleted",
-      "plugin_dir_label": "Verzeichnis der Plugins:",
-      "plugin_id_label": "ID dodatka:",
-      "title": "Informazioni sul plugin",
-      "unknown_value": "Nekonata"
-    },
     "todo_item": {
       "delete_button_tooltip": "Fshij"
     }

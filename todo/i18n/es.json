@@ -30,14 +30,6 @@
       "clear_completed_button": "Borrar completado",
       "title": "Lista de tareas"
     },
-    "info": {
-      "ipc_commands_label": "Comandos IPC:",
-      "ipc_commands_list": "addTodo, toggleTodo, clearCompleted",
-      "plugin_dir_label": "Directorio de plugins:",
-      "plugin_id_label": "ID del plugin:",
-      "title": "Información del plugin",
-      "unknown_value": "Desconocido"
-    },
     "todo_item": {
       "delete_button_tooltip": "Borrar"
     }

@@ -30,14 +30,6 @@
       "clear_completed_button": "Tamamlananları Temizle",
       "title": "Yapılacaklar Listesi"
     },
-    "info": {
-      "ipc_commands_label": "IPC Komutları:",
-      "ipc_commands_list": "todoEkle, todoDurumunuDeğiştir, TamamlananlarıTemizle",
-      "plugin_dir_label": "Eklenti Dizini:",
-      "plugin_id_label": "Eklenti Kimliği:",
-      "title": "Eklenti Bilgileri",
-      "unknown_value": "Bilinmiyor"
-    },
     "todo_item": {
       "delete_button_tooltip": "Sil"
     }

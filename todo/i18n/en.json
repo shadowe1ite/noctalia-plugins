@@ -11,14 +11,6 @@
     "empty_state": {
       "message": "No todo items yet"
     },
-    "info": {
-      "title": "Plugin Information",
-      "plugin_id_label": "Plugin ID:",
-      "unknown_value": "Unknown",
-      "plugin_dir_label": "Plugin Directory:",
-      "ipc_commands_label": "IPC Commands:",
-      "ipc_commands_list": "addTodo, toggleTodo, clearCompleted"
-    },
     "todo_item": {
       "delete_button_tooltip": "Delete"
     }
@@ -54,4 +46,3 @@
     "empty_state": "No to-dos"
   }
 }
-

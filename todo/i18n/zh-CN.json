@@ -11,14 +11,6 @@
     "empty_state": {
       "message": "暂无待办事项"
     },
-    "info": {
-      "title": "插件信息",
-      "plugin_id_label": "插件ID:",
-      "unknown_value": "未知",
-      "plugin_dir_label": "插件目录:",
-      "ipc_commands_label": "IPC命令:",
-      "ipc_commands_list": "addTodo, toggleTodo, clearCompleted"
-    },
     "todo_item": {
       "delete_button_tooltip": "删除"
     }
@@ -54,5 +46,3 @@
     "empty_state": "暂无待办事项"
   }
 }
-
-

@@ -30,14 +30,6 @@
       "clear_completed_button": "Limpar Concluídos",
       "title": "Lista de Tarefas"
     },
-    "info": {
-      "ipc_commands_label": "Comandos IPC:",
-      "ipc_commands_list": "adicionarTarefa, alternarTarefa, limparConcluídas",
-      "plugin_dir_label": "Diretório de plugins:",
-      "plugin_id_label": "ID do plugin:",
-      "title": "Informações do Plugin",
-      "unknown_value": "Desconhecido"
-    },
     "todo_item": {
       "delete_button_tooltip": "Apagar"
     }

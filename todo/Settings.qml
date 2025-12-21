@@ -8,7 +8,13 @@ ColumnLayout {
 
   property var pluginApi: null
 
-  property bool valueShowCompleted: pluginApi?.pluginSettings?.showCompleted || pluginApi?.manifest?.metadata?.defaultSettings?.showCompleted || false
+  property bool valueShowCompleted: pluginApi?.pluginSettings?.showCompleted !== undefined
+                                    ? pluginApi.pluginSettings.showCompleted
+                                    : pluginApi?.manifest?.metadata?.defaultSettings?.showCompleted
+
+  property bool valueShowBackground: pluginApi?.pluginSettings?.showBackground !== undefined
+                                    ? pluginApi.pluginSettings.showBackground
+                                    : pluginApi?.manifest?.metadata?.defaultSettings?.showBackground
 
   spacing: Style.marginM
 
@@ -18,13 +24,23 @@ ColumnLayout {
 
   NToggle {
     Layout.fillWidth: true
-    label: pluginApi?.tr("settings.show_completed.label") || "Show Completed Items"
-    description: pluginApi?.tr("settings.show_completed.description") || "Display completed to-do items in the list"
+    label: pluginApi?.tr("settings.show_completed.label")
+    description: pluginApi?.tr("settings.show_completed.description")
     checked: root.valueShowCompleted
     onToggled: function (checked) {
       root.valueShowCompleted = checked;
     }
   }
+
+   NToggle {
+      Layout.fillWidth: true
+      label: pluginApi?.tr("settings.background_color.label")
+      description: pluginApi?.tr("settings.background_color.description")
+      checked: root.valueShowBackground
+      onToggled: function (checked) {
+        root.valueShowBackground = checked;
+      }
+    }
 
   function saveSettings() {
     if (!pluginApi) {
@@ -33,7 +49,7 @@ ColumnLayout {
     }
 
     pluginApi.pluginSettings.showCompleted = root.valueShowCompleted;
-
+    pluginApi.pluginSettings.showBackground = root.valueShowBackground;
     pluginApi.saveSettings();
 
     Logger.i("Todo", "Settings saved successfully");

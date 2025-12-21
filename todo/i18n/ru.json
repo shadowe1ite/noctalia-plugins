@@ -30,14 +30,6 @@
       "clear_completed_button": "Очистить завершенные",
       "title": "Список дел"
     },
-    "info": {
-      "ipc_commands_label": "IPC команды:",
-      "ipc_commands_list": "добавитьЗадачу, переключитьЗадачу, очиститьЗавершенные",
-      "plugin_dir_label": "Каталог плагинов",
-      "plugin_id_label": "ID плагина:",
-      "title": "Информация о плагине",
-      "unknown_value": "Неизвестно"
-    },
     "todo_item": {
       "delete_button_tooltip": "Удалить"
     }

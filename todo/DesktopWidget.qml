@@ -10,8 +10,14 @@ DraggableDesktopWidget {
 
   property var pluginApi: null
   property bool expanded: false
-  property bool showCompleted: pluginApi?.pluginSettings?.showCompleted || pluginApi?.manifest?.metadata?.defaultSettings?.showCompleted || false
+  property bool showCompleted: pluginApi?.pluginSettings?.showCompleted !== undefined ? pluginApi.pluginSettings.showCompleted : pluginApi?.manifest?.metadata?.defaultSettings?.showCompleted
   property ListModel filteredTodosModel: ListModel {}
+
+  showBackground: (pluginApi && pluginApi.pluginSettings ? (pluginApi.pluginSettings.showBackground !== undefined ? pluginApi.pluginSettings.showBackground : pluginApi?.manifest?.metadata?.defaultSettings?.showBackground) : pluginApi?.manifest?.metadata?.defaultSettings?.showBackground)
+
+  readonly property color todoBg: showBackground ? Qt.rgba(0, 0, 0, 0.2) : Color.transparent
+  readonly property color itemBg: showBackground ? Color.mSurface : Color.transparent
+  readonly property color completedItemBg: showBackground ? Color.mSurfaceVariant : Color.transparent
 
   implicitWidth: 300
   implicitHeight: {
@@ -31,7 +37,7 @@ DraggableDesktopWidget {
   }
 
   function getCurrentShowCompleted() {
-    return pluginApi?.pluginSettings?.showCompleted || pluginApi?.manifest?.metadata?.defaultSettings?.showCompleted || false;
+    return pluginApi?.pluginSettings?.showCompleted !== undefined ? pluginApi.pluginSettings.showCompleted : pluginApi?.manifest?.metadata?.defaultSettings?.showCompleted || false;
   }
 
   function updateFilteredTodos() {
@@ -141,7 +147,7 @@ DraggableDesktopWidget {
 
       NBox {
         anchors.fill: parent
-        color: Qt.rgba(0, 0, 0, 0.2)
+        color: root.todoBg
         radius: Style.radiusM
 
         ListView {
@@ -158,7 +164,7 @@ DraggableDesktopWidget {
           delegate: Rectangle {
             width: ListView.view.width
             height: Style.baseWidgetSize
-            color: model.completed ? Color.mSurfaceVariant : Color.mSurface
+            color: model.completed ? root.completedItemBg : root.itemBg
             radius: Style.radiusS
 
             RowLayout {

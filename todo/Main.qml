@@ -33,9 +33,7 @@ Item {
         todos.push(newTodo);
 
         pluginApi.pluginSettings.todos = todos;
-
         pluginApi.pluginSettings.count = todos.length;
-
         pluginApi.saveSettings();
 
         ToastService.showNotice(pluginApi?.tr("main.added_new_todo") + text);
@@ -65,7 +63,6 @@ Item {
             }
           }
           pluginApi.pluginSettings.completedCount = completedCount;
-
           pluginApi.saveSettings();
 
           var action = todos.find(t => t.id === id).completed ? pluginApi?.tr("main.todo_completed") : pluginApi?.tr("main.todo_marked_incomplete");
@@ -82,14 +79,11 @@ Item {
     function clearCompleted() {
       if (pluginApi) {
         var todos = pluginApi.pluginSettings.todos || [];
-
         var activeTodos = todos.filter(todo => !todo.completed);
 
         pluginApi.pluginSettings.todos = activeTodos;
-
         pluginApi.pluginSettings.count = activeTodos.length;
         pluginApi.pluginSettings.completedCount = 0;
-
         pluginApi.saveSettings();
 
         var clearedCount = todos.length - activeTodos.length;

@@ -30,14 +30,6 @@
       "clear_completed_button": "Очистити завершені",
       "title": "Список справ"
     },
-    "info": {
-      "ipc_commands_label": "IPC Команди:",
-      "ipc_commands_list": "addTodo, toggleTodo, clearCompleted",
-      "plugin_dir_label": "Каталог плагінів",
-      "plugin_id_label": "Ідентифікатор плагіна:",
-      "title": "Інформація про плагін",
-      "unknown_value": "Невідомо"
-    },
     "todo_item": {
       "delete_button_tooltip": "Видалити"
     }

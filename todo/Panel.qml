@@ -2,16 +2,16 @@ import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
 import qs.Commons
-import qs.Widgets
 import qs.Services.UI
+import qs.Widgets
 
 Item {
   id: root
 
   property var pluginApi: null
   readonly property var geometryPlaceholder: panelContainer
-  property real contentPreferredWidth: 800 * Style.uiScaleRatio
-  property real contentPreferredHeight: 600 * Style.uiScaleRatio
+  property real contentPreferredWidth: 700 * Style.uiScaleRatio
+  property real contentPreferredHeight: 500 * Style.uiScaleRatio
   readonly property bool allowAttach: true
   anchors.fill: parent
   property ListModel todosModel: ListModel {}
@@ -28,7 +28,9 @@ Item {
   Component.onCompleted: {
     if (pluginApi) {
       Logger.i("Todo", "Panel initialized");
-      root.showCompleted = pluginApi?.pluginSettings?.showCompleted || pluginApi?.manifest?.metadata?.defaultSettings?.showCompleted || false;
+      root.showCompleted = pluginApi?.pluginSettings?.showCompleted !== undefined
+                           ? pluginApi.pluginSettings.showCompleted
+                           : pluginApi?.manifest?.metadata?.defaultSettings?.showCompleted || false;
       loadTodos();
     }
   }
@@ -75,7 +77,9 @@ Item {
     running: !!pluginApi
     repeat: true
     onTriggered: {
-      var newShowCompleted = pluginApi?.pluginSettings?.showCompleted || pluginApi?.manifest?.metadata?.defaultSettings?.showCompleted || false;
+    var newShowCompleted = pluginApi?.pluginSettings?.showCompleted !== undefined
+                           ? pluginApi.pluginSettings.showCompleted
+                           : pluginApi?.manifest?.metadata?.defaultSettings?.showCompleted || false;
       var currentTodos = pluginApi?.pluginSettings?.todos || [];
       var currentTodosCount = currentTodos.length;
 
@@ -335,95 +339,6 @@ Item {
                     }
                   }
                 }
-              }
-            }
-          }
-        }
-      }
-
-      ColumnLayout {
-        Layout.fillWidth: true
-        spacing: Style.marginM
-
-        NText {
-          text: pluginApi?.tr("panel.info.title")
-          font.pointSize: Style.fontSizeM * Style.uiScaleRatio
-          font.weight: Font.Medium
-          color: Color.mOnSurface
-        }
-
-        Rectangle {
-          Layout.fillWidth: true
-          Layout.preferredHeight: infoColumn.implicitHeight + Style.marginM * 2
-          color: Color.mSurfaceVariant
-          radius: Style.radiusM
-
-          ColumnLayout {
-            id: infoColumn
-            anchors {
-              fill: parent
-              margins: Style.marginM
-            }
-            spacing: Style.marginS
-
-            RowLayout {
-              Layout.fillWidth: true
-              spacing: Style.marginM
-
-              NText {
-                text: pluginApi?.tr("panel.info.plugin_id_label")
-                font.pointSize: Style.fontSizeS
-                color: Color.mOnSurfaceVariant
-                Layout.preferredWidth: 100
-              }
-
-              NText {
-                text: pluginApi?.pluginId || pluginApi?.tr("panel.info.unknown_value")
-                font.pointSize: Style.fontSizeS
-                font.family: Settings.data.ui.fontFixed
-                color: Color.mOnSurface
-                Layout.fillWidth: true
-              }
-            }
-
-            RowLayout {
-              Layout.fillWidth: true
-              spacing: Style.marginM
-
-              NText {
-                text: pluginApi?.tr("panel.info.plugin_dir_label")
-                font.pointSize: Style.fontSizeS
-                color: Color.mOnSurfaceVariant
-                Layout.preferredWidth: 100
-              }
-
-              NText {
-                text: pluginApi?.pluginDir || pluginApi?.tr("panel.info.unknown_value")
-                font.pointSize: Style.fontSizeS
-                color: Color.mOnSurface
-                Layout.fillWidth: true
-                elide: Text.ElideMiddle
-              }
-            }
-
-            RowLayout {
-              Layout.fillWidth: true
-              spacing: Style.marginM
-
-              NText {
-                text: pluginApi?.tr("panel.info.ipc_commands_label")
-                font.pointSize: Style.fontSizeS
-                font.family: Settings.data.ui.fontFixed
-                color: Color.mOnSurfaceVariant
-                Layout.preferredWidth: 100
-              }
-
-              NText {
-                text: pluginApi?.tr("panel.info.ipc_commands_list")
-                font.pointSize: Style.fontSizeS
-                font.family: Settings.data.ui.fontFixed
-                color: Color.mOnSurface
-                Layout.fillWidth: true
               }
             }
           }

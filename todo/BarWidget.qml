@@ -38,6 +38,7 @@ Rectangle {
     NIcon {
       icon: "checklist"
       applyUiScale: false
+      color: mouseArea.containsMouse ? Color.mOnHover : Color.mOnSurface
     }
 
     NText {
@@ -48,13 +49,14 @@ Rectangle {
         var text = pluginApi?.tr(key) || (count + " todo" + (count !== 1 ? 's' : ''));
         return text.replace("{count}", count);
       }
-      color: Color.mOnSurface
+      color: mouseArea.containsMouse ? Color.mOnHover : Color.mOnSurface
       pointSize: Style.fontSizeS
       font.weight: Font.Medium
     }
   }
 
   MouseArea {
+    id: mouseArea
     anchors.fill: parent
     hoverEnabled: true
     cursorShape: Qt.PointingHandCursor
