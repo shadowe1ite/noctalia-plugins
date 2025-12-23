@@ -1,0 +1,23 @@
+{
+  "id": "qs-hyprview",
+  "name": "HyprView Switcher",
+  "version": "1.0.0",
+  "minNoctaliaVersion": "3.6.0",
+  "author": "shadowe1ite",
+  "license": "GPL-3.0",
+  "repository": "https://github.com/dom0/qs-hyprview",
+  "description": "A modern, fluid, and highly customizable Window Switcher (Exposé) for Hyprland.",
+  "entryPoints": {
+    "main": "Main.qml"
+  },
+  "dependencies": {
+    "plugins": []
+  },
+  "metadata": {
+    "defaultSettings": {
+      "defaultLayout": "smartgrid",
+      "liveCapture": true,
+      "moveCursorToActiveWindow": false
+    }
+  }
+}
