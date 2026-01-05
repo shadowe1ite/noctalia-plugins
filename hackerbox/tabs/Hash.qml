@@ -111,9 +111,11 @@ Item {
             if (hashProc.running) {
               hashProc.running = false;
             }
-            var cmd = hasherRoot.getSafeCommand(inputBox.text, hashSelector.currentKey);
-            hashProc.command = ["bash", "-c", cmd];
-            hashProc.running = true;
+            if (inputBox.text !== "") {
+              var cmd = hasherRoot.getSafeCommand(inputBox.text, hashSelector.currentKey);
+              hashProc.command = ["bash", "-c", cmd];
+              hashProc.running = true;
+            }
           }
         }
       }

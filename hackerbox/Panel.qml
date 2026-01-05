@@ -5,6 +5,7 @@ import Quickshell
 import "./components"
 import "./tabs"
 import qs.Commons
+import qs.Services.UI // add this to module
 import qs.Widgets
 
 Item {
@@ -30,6 +31,11 @@ Item {
       icon: "hash",
       title: "Hash Generator",
       text: "Hash Generator"
+    },
+    {
+      icon: "photo-question",
+      title: "Steg Check",
+      text: "Steg Check"
     }
   ]
 
@@ -167,6 +173,9 @@ Item {
 
             // --- Tab 1: Coming Soon ---
             Hash {}
+
+            // new
+            Steg {}
           }
         }
       }
