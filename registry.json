@@ -2,6 +2,17 @@
   "version": 1,
   "plugins": [
     {
+      "id": "hackerbox",
+      "name": "hackerbox",
+      "version": "1.0.0",
+      "author": "shadowe1ite",
+      "description": "A set of tools useful for hackers/ctf players",
+      "repository": "https://github.com/noctalia-dev/noctalia-plugins",
+      "minNoctaliaVersion": "3.6.0",
+      "license": "MIT",
+      "lastUpdated": null
+    },
+    {
       "id": "lyrics",
       "name": "Lyrics",
       "version": "1.0.2",
