@@ -10,11 +10,11 @@ Rectangle {
   // Define the signal so the parent can listen to it
   signal activated(int index)
 
-  // Data properties (marked required to match Repeater context automatically)
+  // Data properties
   required property var modelData
   required property int index
 
-  // Config properties (mapped manually from parent)
+  // Config properties
   property int currentTabIndex: 0
   property bool sidebarExpanded: false
   property string iconName: modelData.icon
@@ -25,7 +25,8 @@ Rectangle {
   Layout.preferredHeight: 40 * Style.uiScaleRatio
   radius: Style.radiusS
 
-  color: currentTabIndex === idx ? Qt.rgba(1, 1, 1, 0.1) : itemMouse.containsMouse ? Qt.rgba(1, 1, 1, 0.05) : Color.transparent
+  // FIX: Use theme colors instead of hardcoded RGBA
+  color: currentTabIndex === idx ? Color.mSurface : (itemMouse.containsMouse ? Color.mOnPrimary : "transparent")
 
   // Active indicator bar
   Rectangle {
@@ -48,6 +49,7 @@ Rectangle {
 
     NIcon {
       icon: sideItem.iconName
+      // FIX: Use Primary color for active state
       color: currentTabIndex === sideItem.idx ? Color.mPrimary : Color.mOnSurface
       Layout.preferredWidth: 24
       Layout.preferredHeight: 24
@@ -55,6 +57,7 @@ Rectangle {
 
     Text {
       text: sideItem.itemText
+      // FIX: Use Primary color for active state
       color: currentTabIndex === sideItem.idx ? Color.mPrimary : Color.mOnSurface
       font.weight: currentTabIndex === sideItem.idx ? Font.DemiBold : Font.Normal
       opacity: sidebarExpanded ? 1 : 0
@@ -74,7 +77,6 @@ Rectangle {
     anchors.fill: parent
     hoverEnabled: true
     cursorShape: Qt.PointingHandCursor
-    // Emit signal instead of accessing root directly
     onClicked: sideItem.activated(sideItem.idx)
   }
 }

@@ -5,7 +5,7 @@ import Quickshell
 import "./components"
 import "./tabs"
 import qs.Commons
-import qs.Services.UI // add this to module
+import qs.Services.UI
 import qs.Widgets
 
 Item {
@@ -44,7 +44,7 @@ Item {
   // --- Main UI ---
   Rectangle {
     anchors.fill: parent
-    color: Color.transparent
+    color: "transparent" // FIX: String "transparent" instead of invalid Color property
 
     Rectangle {
       anchors.fill: parent
@@ -135,7 +135,7 @@ Item {
           Rectangle {
             Layout.fillWidth: true
             Layout.preferredHeight: 60 * Style.uiScaleRatio
-            color: Color.transparent
+            color: "transparent" // FIX: String "transparent"
 
             RowLayout {
               anchors.left: parent.left
@@ -147,7 +147,7 @@ Item {
               NIcon {
                 icon: root.tabs[root.currentTabIndex].icon
                 color: Color.mOnSurface
-                pointSize: Style.fontSizeXL // Using Style size is better
+                pointSize: Style.fontSizeXL
                 Layout.preferredWidth: 24
                 Layout.preferredHeight: 24
               }
@@ -171,10 +171,10 @@ Item {
             // --- Tab 0: Encoder ---
             Encoder {}
 
-            // --- Tab 1: Coming Soon ---
+            // --- Tab 1: Hash ---
             Hash {}
 
-            // new
+            // --- Tab 2: Steg ---
             Steg {}
           }
         }
