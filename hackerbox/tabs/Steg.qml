@@ -26,7 +26,6 @@ Item {
   // --- Process Handler ---
   Process {
     id: stegProcess
-
     stdout: StdioCollector {
       onStreamFinished: {
         if (stegRoot.currentToolName !== "") {
@@ -34,7 +33,6 @@ Item {
         }
       }
     }
-
     stderr: StdioCollector {
       onStreamFinished: {
         if (text.trim() !== "") {
@@ -46,7 +44,6 @@ Item {
         }
       }
     }
-
     onExited: {
       stegRoot.processNextTool();
     }
@@ -56,10 +53,8 @@ Item {
   function startFullScan() {
     if (stegRoot.selectedImage === "")
       return;
-
     stegRoot.isScanning = true;
     resultsModel.clear();
-
     stegRoot.toolQueue = [
           {
             name: "File Type",
@@ -87,7 +82,6 @@ Item {
             icon: "file-description"
           }
         ];
-
     stegRoot.processNextTool();
   }
 
@@ -97,17 +91,14 @@ Item {
       stegRoot.currentToolName = "";
       return;
     }
-
     var tool = stegRoot.toolQueue.shift();
     stegRoot.currentToolName = tool.name;
-
     resultsModel.append({
                           name: tool.name,
                           icon: tool.icon,
                           output: "",
                           loading: true
                         });
-
     stegProcess.command = tool.cmd;
     stegProcess.running = true;
   }
@@ -134,29 +125,22 @@ Item {
     anchors.margins: Style.marginL
     spacing: Style.marginM
 
-    // Header Area
+    // Header
     RowLayout {
       Layout.fillWidth: true
       spacing: Style.marginM
 
-      Rectangle {
+      NBox {
         width: 64
         height: 64
-        radius: Style.radiusM
-        color: Color.mSurfaceVariant
         clip: true
-
-        NIcon {
-          visible: stegRoot.selectedImage === ""
-          anchors.centerIn: parent
-          icon: "image"
-          color: Color.mOnSurfaceVariant
-        }
-        Image {
-          visible: stegRoot.selectedImage !== ""
+        NImageRounded {
           anchors.fill: parent
-          source: stegRoot.selectedImage !== "" ? "file://" + stegRoot.selectedImage : ""
-          fillMode: Image.PreserveAspectCrop
+          radius: Style.radiusM
+          imagePath: stegRoot.selectedImage !== "" ? "file://" + stegRoot.selectedImage : ""
+          imageFillMode: Image.PreserveAspectCrop
+          fallbackIcon: "image"
+          fallbackIconSize: Style.fontSizeXXL
         }
       }
 
@@ -190,102 +174,113 @@ Item {
       }
     }
 
-    Rectangle {
+    NDivider {
       Layout.fillWidth: true
-      height: 1
-      color: Color.mOutline
+      vertical: false
       opacity: 0.5
     }
 
-    // Results List
-    ListView {
-      id: resultList
+    // --- FIXED SCROLL VIEW ---
+    NScrollView {
       Layout.fillWidth: true
       Layout.fillHeight: true
-      clip: true
-      model: resultsModel
-      spacing: Style.marginM
 
-      delegate: Rectangle {
-        id: resultCard
-        width: ListView.view.width
-        // Fix: Height is dynamic based on content + padding
-        height: contentCol.implicitHeight + (Style.marginM * 2)
-        color: Color.mSurfaceVariant
-        radius: Style.radiusM
+      // Explicit Flickable fixes the "no scroll wheel" issue
+      Flickable {
+        id: flick
+        anchors.fill: parent
+        contentHeight: contentCol.height
+        clip: true
+        boundsBehavior: Flickable.StopAtBounds
 
-        property bool expanded: false
+        // Mouse wheel handling is native to Flickable
 
-        ColumnLayout {
+        // Use Column instead of ColumnLayout to prevent "collisions"
+        Column {
           id: contentCol
-          width: parent.width - (Style.marginM * 2)
-          anchors.centerIn: parent
-          spacing: Style.marginS
+          width: parent.width
+          spacing: Style.marginM
 
-          // Title Row
-          RowLayout {
-            Layout.fillWidth: true
-            NIcon {
-              icon: model.icon
-              color: Color.mPrimary
+          Repeater {
+            model: resultsModel
+
+            delegate: NBox {
+              id: resultCard
+              // In a Column, use width, not Layout.fillWidth
+              width: contentCol.width
+
+              // Dynamic height based on content
+              height: internalCol.implicitHeight + (Style.marginM * 2)
+
+              property bool expanded: false
+
+              ColumnLayout {
+                id: internalCol
+                width: parent.width - (Style.marginM * 2)
+                anchors.centerIn: parent
+                spacing: Style.marginS
+
+                RowLayout {
+                  Layout.fillWidth: true
+                  NIcon {
+                    icon: model.icon
+                    color: Color.mPrimary
+                  }
+                  NText {
+                    text: model.name
+                    font.weight: Font.Bold
+                    Layout.fillWidth: true
+                  }
+                  NBusyIndicator {
+                    running: model.loading
+                    visible: model.loading
+                    size: 20
+                  }
+                  NIconButton {
+                    visible: !model.loading
+                    icon: resultCard.expanded ? "chevron-up" : "chevron-down"
+                    onClicked: resultCard.expanded = !resultCard.expanded
+                  }
+                }
+
+                NBox {
+                  Layout.fillWidth: true
+                  // Calculate height only when needed
+                  Layout.preferredHeight: visible ? (contentText.implicitHeight + 20) : 0
+                  visible: resultCard.expanded && !model.loading && model.output !== ""
+
+                  color: Color.mSurface
+                  radius: Style.radiusS
+                  clip: true
+
+                  TextEdit {
+                    id: contentText
+                    anchors.top: parent.top
+                    anchors.left: parent.left
+                    anchors.right: parent.right
+                    anchors.margins: 10
+
+                    text: model.output
+                    font.family: "Monospace"
+                    font.pointSize: 10
+                    color: Color.mOnSurfaceVariant
+                    wrapMode: Text.Wrap
+                    readOnly: true
+                    selectByMouse: true
+                    selectionColor: Color.mPrimary
+                    selectedTextColor: Color.mOnPrimary
+                  }
+                }
+
+                NText {
+                  visible: !model.loading && model.output === ""
+                  text: "No output found."
+                  font.italic: true
+                  color: Color.mOutline
+                  Layout.alignment: Qt.AlignHCenter
+                }
+              }
             }
-            NText {
-              text: model.name
-              font.weight: Font.Bold
-              Layout.fillWidth: true
-            }
-
-            NBusyIndicator {
-              running: model.loading
-              visible: model.loading
-              size: 20 // Fixed property name
-            }
-
-            NIconButton {
-              visible: !model.loading
-              icon: resultCard.expanded ? "chevron-up" : "chevron-down"
-              onClicked: resultCard.expanded = !resultCard.expanded
-            }
-          }
-
-          // Output Box
-          Rectangle {
-            Layout.fillWidth: true
-            // Fix: Calculate height only when visible
-            Layout.preferredHeight: visible ? (contentText.implicitHeight + 20) : 0
-
-            visible: resultCard.expanded && !model.loading && model.output !== ""
-            color: Color.mSurface
-            radius: Style.radiusS
-            clip: true
-
-            TextEdit {
-              id: contentText
-              anchors.top: parent.top
-              anchors.left: parent.left
-              anchors.right: parent.right
-              anchors.margins: 10
-
-              text: model.output
-              font.family: "Monospace"
-              font.pointSize: 10
-              color: Color.mOnSurfaceVariant
-              wrapMode: Text.Wrap
-
-              // Enable Selection
-              readOnly: true
-              selectByMouse: true
-              selectionColor: Color.mPrimary
-              selectedTextColor: Color.mOnPrimary
-            }
-          }
-
-          NText {
-            visible: !model.loading && model.output === ""
-            text: "No output found."
-            font.italic: true
-            color: Color.mOutline
-            Layout.alignment: Qt.AlignHCenter
           }
         }
       }
