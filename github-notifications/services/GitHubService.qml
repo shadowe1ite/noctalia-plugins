@@ -231,10 +231,6 @@ QtObject {
     id: markReadProcess
     running: false
     stdout: StdioCollector {}
-
-    onExited: exitCode => {
-      service.refresh();
-    }
   }
 
   // Mark all as read
@@ -242,10 +238,6 @@ QtObject {
     id: markAllReadProcess
     running: false
     stdout: StdioCollector {}
-
-    onExited: exitCode => {
-      service.refresh();
-    }
   }
 
   function refresh() {
