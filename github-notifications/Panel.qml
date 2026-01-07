@@ -271,7 +271,8 @@ Item {
                       Layout.preferredWidth: 18
                       Layout.preferredHeight: 18
                       radius: 9
-                      imagePath: getActorAvatar(notification)
+                      // Only show actual avatar once actorAvatarUrl is fetched to avoid glitch
+                      imagePath: notification.actorAvatarUrl || ""
                       fallbackIcon: "user"
                       fallbackIconSize: Style.fontSizeXS
                     }
