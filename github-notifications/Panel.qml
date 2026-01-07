@@ -259,6 +259,42 @@ Item {
                     elide: Text.ElideRight
                     maximumLineCount: 2
                   }
+
+                  // Avatar and reason badge row
+                  RowLayout {
+                    Layout.fillWidth: true
+                    Layout.topMargin: 4
+                    spacing: Style.marginS
+                    visible: notification.reason
+
+                    NImageRounded {
+                      Layout.preferredWidth: 18
+                      Layout.preferredHeight: 18
+                      radius: 9
+                      imagePath: getActorAvatar(notification)
+                      fallbackIcon: "user"
+                      fallbackIconSize: Style.fontSizeXS
+                    }
+
+                    Rectangle {
+                      Layout.preferredHeight: 18
+                      Layout.preferredWidth: reasonText.implicitWidth + Style.marginS * 2
+                      radius: 9
+                      color: getReasonColor(notification.reason)
+
+                      NText {
+                        id: reasonText
+                        anchors.centerIn: parent
+                        text: formatReason(notification.reason)
+                        pointSize: Style.fontSizeXS
+                        color: Color.mOnSurface
+                      }
+                    }
+
+                    Item {
+                      Layout.fillWidth: true
+                    }
+                  }
                 }
               }
 
@@ -294,7 +330,7 @@ Item {
     const type = notification.subject?.type || "";
     switch (type) {
     case "Issue":
-      return "alert-circle";
+      return "circle-dot";
     case "PullRequest":
       return "git-pull-request";
     case "Release":
@@ -307,6 +343,51 @@ Item {
       return "git-commit";
     default:
       return "bell";
+    }
+  }
+
+  function getActorAvatar(notification) {
+    // Use fetched actor avatar, falls back to repo owner
+    return notification.actorAvatarUrl || notification.repository?.owner?.avatar_url || "";
+  }
+
+  function formatReason(reason) {
+    switch (reason) {
+    case "mention":
+      return "mentioned";
+    case "subscribed":
+      return "subscribed";
+    case "author":
+      return "author";
+    case "review_requested":
+      return "review requested";
+    case "assign":
+      return "assigned";
+    case "team_mention":
+      return "team mentioned";
+    case "comment":
+      return "commented";
+    case "state_change":
+      return "state changed";
+    case "ci_activity":
+      return "CI activity";
+    default:
+      return reason || "";
+    }
+  }
+
+  function getReasonColor(reason) {
+    switch (reason) {
+    case "mention":
+    case "team_mention":
+      return Qt.alpha(Color.mPrimary, 0.2);
+    case "review_requested":
+    case "assign":
+      return Qt.alpha(Color.mWarning, 0.2);
+    case "author":
+      return Qt.alpha(Color.mSuccess, 0.2);
+    default:
+      return Qt.alpha(Color.mOnSurface, 0.1);
     }
   }
 
