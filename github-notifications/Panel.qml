@@ -24,13 +24,6 @@ Item {
 
   readonly property string githubToken: cfg.githubToken || defaults.githubToken || ""
 
-  // Trigger refresh when panel becomes visible
-  onVisibleChanged: {
-    if (visible && githubToken && !GitHubService.loading) {
-      GitHubService.refresh();
-    }
-  }
-
   Rectangle {
     id: panelContainer
     anchors.fill: parent
