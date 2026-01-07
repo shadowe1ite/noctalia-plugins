@@ -4,13 +4,13 @@
     {
       "id": "github-notifications",
       "name": "GitHub Notifications",
-      "version": "1.0.0",
-      "author": "Lokize",
+      "version": "1.0.1",
+      "author": "shadowe1ite",
       "description": "Monitor GitHub notifications with unread count and mark as read",
-      "repository": "https://github.com/lokize/noctalia-plugins",
+      "repository": "https://github.com/shadowe1ite/noctalia-plugins",
       "minNoctaliaVersion": "3.6.0",
       "license": "MIT",
-      "lastUpdated": null
+      "lastUpdated": "2026-01-07T16:46:10+05:30"
     },
     {
       "id": "hackerbox",
