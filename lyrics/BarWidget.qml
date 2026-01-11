@@ -16,7 +16,12 @@ Item {
   property string section: ""
 
   readonly property var backend: pluginApi?.mainInstance
-  readonly property string lyricText: backend?.currentLyric ?? ""
+  readonly property string lyricText: {
+    const lyric = backend?.currentLyric ?? "";
+    if (lyric === "" && !hideWhenEmpty)
+      return "404 Lyrics not Found";
+    return lyric;
+  }
 
   // Settings with defaults from manifest
   readonly property int widgetWidth: pluginApi?.pluginSettings?.widgetWidth ?? pluginApi?.manifest?.metadata?.defaultSettings?.widgetWidth ?? 300
@@ -214,20 +219,18 @@ Item {
       }
     }
 
-    // Mouse interaction
-    MouseArea {
-      anchors.fill: parent
-      hoverEnabled: true
-      cursorShape: Qt.PointingHandCursor
-
-      onEntered: {
-        root.hovered = true;
-        // Smooth rewind to start on hover
-        if (scrollText.state === NScrollText.ScrollState.Scrolling) {
-          scrollText.state = NScrollText.ScrollState.Resetting;
-        }
-        if (root.isVertical && root.lyricText !== "") {
-          TooltipService.show(root, root.lyricText, BarService.getTooltipDirection());
+    HoverHandler {
+      id: hoverHandler
+      onHoveredChanged: {
+        root.hovered = hovered;
+        if (hovered) {
+          if (root.isVertical && root.lyricText !== "") {
+            TooltipService.show(root, root.lyricText, BarService.getTooltipDirection());
+          }
+        } else {
+          if (root.isVertical) {
+            TooltipService.hide();
+          }
         }
       }
     }
